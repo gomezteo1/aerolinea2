@@ -53,7 +53,9 @@ CREATE TABLE
     apellido VARCHAR(50) NOT NULL,
     fecha_nacimiento date NOT NULL,
     telefono BIGINT NOT NULL,
-    email VARCHAR(20) NOT NULL
+    correo VARCHAR(20) NOT NULL,
+    clave VARCHAR(20) NOT NULL,
+
   );
 
 CREATE TABLE

@@ -1,0 +1,129 @@
+erDiagram
+    CLIENTE {
+        id_cliente BIGINT pk
+        cedula BIGINT
+        nombre VARCHAR(50)
+        apellido VARCHAR(50)
+        fecha_nacimiento DATE
+        telefono BIGINT
+        correo VARCHAR(50)
+        clave VARCHAR(50)
+    }
+
+    EQUIPAJE {
+        id_equipaje INT
+        id_cliente INT
+        peso INT
+    }
+
+    RESERVA {
+        id_reserva INT
+        id_cliente INT
+        fecha_reserva DATE
+    }
+
+    BOLETO {
+        id_boleto INT
+        id_reserva INT
+        precio int(10)
+        fecha_emision DATE
+    }
+
+    EMPLEADO {
+        id_empleado INT
+        cedula BIGINT
+        nombre VARCHAR(50)
+        apellido VARCHAR(50)
+        fecha_contratacion DATE
+        salario int(10)
+        telefono BIGINT
+        correo varchar(50)
+        clave varchar(50)
+    }
+
+    TIPO_EMPLEADO {
+        id_tipo_empleado INT
+        tipo_empleado VARCHAR(30)
+    }
+
+    TRIPULACION {
+        id_tripulacion INT
+        id_empleado INT
+        id_tipo_empleado INT
+    }
+
+    ESTADO_AVION {
+        id_estado_avion INT
+        nombre_estado VARCHAR(20)
+    }
+
+    AVION {
+        id_avion INT
+        no_serie VARCHAR(50)
+        modelo VARCHAR(20)
+        cantidad_asientos INT
+        fabricacion_year DATE
+        id_estado_avion INT
+    }
+
+    DIRECCION {
+        id_direccion INT
+        calle VARCHAR(30)
+        ciudad VARCHAR(30)
+        codigo_postal VARCHAR(20)
+    }
+
+    PAIS {
+        id_pais INT
+        nombre_pais VARCHAR(30)
+        codigo_pais VARCHAR(20)
+        id_direccion INT
+    }
+
+    DESTINO {
+        id_destino INT
+        nombre VARCHAR(50)
+        codigo_IATA CHAR(3)
+        id_pais INT
+    }
+
+    ESTADO_VUELO {
+        id_estado_vuelo INT
+        nombre_estado VARCHAR(20)
+    }
+
+    TIPO_VUELO {
+        id_tipo_vuelo INT
+        nombre_vuelo VARCHAR(20)
+    }
+
+    VUELO {
+        id_vuelo INT
+        no_vuelo INT
+        id_tripulacion INT fk
+        id_reserva INt fk
+        id_avion INT fk
+        id_destino_origen INT fk
+        id_destino_llegada INT fk
+        fecha_hora_salida DATETIME
+        fecha_hora_llegada DATETIME
+        duracion_vuelo INT
+        id_estado_vuelo INT fk
+        id_tipo_vuelo INT fk
+    }
+
+    CLIENTE ||--o{ EQUIPAJE : posee
+    CLIENTE ||--o{ RESERVA : realiza
+    RESERVA ||--o{ BOLETO : emite
+    EMPLEADO ||--o{ TRIPULACION : pertenece
+    TIPO_EMPLEADO ||--o{ TRIPULACION : tiene
+    ESTADO_AVION ||--o{ AVION : tiene
+    AVION ||--o{ VUELO : opera
+    TRIPULACION ||--o{ VUELO : tiene
+    CLIENTE ||--o{ VUELO : tiene
+    DIRECCION ||--o{ PAIS : pertenece_a
+    PAIS ||--o{ DESTINO : tiene
+    DESTINO ||--o{ VUELO : origen
+    DESTINO ||--o{ VUELO : destino
+    ESTADO_VUELO ||--o{ VUELO : tiene
+    TIPO_VUELO ||--o{ VUELO : tiene
